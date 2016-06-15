@@ -12,6 +12,7 @@ class createDBTables {
         $db = server::getInstance()->connect();
 
         //TODO: if you add tables to DB add them here too
+
         $sql = "CREATE TABLE IF NOT EXISTS `PwM`.`cont` (
                 `id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`id`),
                 `nameOfPlattform` VARCHAR(64) NOT NULL ,

@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1675d26b-d6e2-4e36-9abf-752bc5a38b27" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/php/createDBTables.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/php/index.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/php/server.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/php/createDBTables.php" afterPath="$PROJECT_DIR$/src/php/createDBTables.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/php/index.php" afterPath="$PROJECT_DIR$/src/php/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PwM.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +30,11 @@
       <file leaf-file-name="createDBTables.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/php/createDBTables.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="527">
-              <caret line="15" column="79" selection-start-line="15" selection-start-column="79" selection-end-line="15" selection-end-column="79" />
+            <state vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="544">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
               <folding>
                 <element signature="e#6#98#0" expanded="true" />
-                <marker date="1466011027553" expanded="true" signature="318:696" placeholder="CREATE TABLE..IF..." />
+                <marker date="1466014855910" expanded="true" signature="319:697" placeholder="CREATE TABLE..IF..." />
               </folding>
             </state>
           </provider>
@@ -59,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/src/php/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.13646789" vertical-offset="0" max-vertical-offset="872">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -460,12 +457,12 @@
       <workItem from="1465499443707" duration="6667000" />
       <workItem from="1465687442295" duration="2148000" />
       <workItem from="1465833974822" duration="792000" />
-      <workItem from="1466006757229" duration="4458000" />
+      <workItem from="1466006757229" duration="7246000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14601000" />
+    <option name="totallyTimeSpent" value="17389000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1034" extended-state="6" />
@@ -538,11 +535,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/php/createDBTables.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="527">
-          <caret line="15" column="79" selection-start-line="15" selection-start-column="79" selection-end-line="15" selection-end-column="79" />
+        <state vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="544">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding>
             <element signature="e#6#98#0" expanded="true" />
-            <marker date="1466011027553" expanded="true" signature="318:696" placeholder="CREATE TABLE..IF..." />
+            <marker date="1466014855910" expanded="true" signature="319:697" placeholder="CREATE TABLE..IF..." />
           </folding>
         </state>
       </provider>
@@ -560,7 +557,7 @@
     <entry file="file://$PROJECT_DIR$/src/php/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13646789" vertical-offset="0" max-vertical-offset="872">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding />
         </state>
       </provider>
