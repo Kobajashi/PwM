@@ -5,8 +5,18 @@
  * Date: 15.06.2016
  * Time: 18:23
  */
+    require_once("server.php");
 
-class createDBTables {
+class createDBTables{
+    private static $instance = null;
+
+    public static function getInstance(){
+        if(!self::$instance){
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
     function build(){
         // you need to create the DB called "PwM"
         $db = server::getInstance()->connect();

@@ -6,8 +6,9 @@
  * Time: 18:29
  */
 
-class server {
+class server{
     private static $instance = null;
+
     private $database_host = "localhost";
     private $database_name = "PwM";
     private $database_user = "admin";
