@@ -66,6 +66,8 @@ class server{
         $aes = new AES(self::$z);
         $db = self::connect();
 
+        var_dump($data);
+
         $sql = "INSERT INTO `".$table."` (";
         foreach($data as $key => $value){
             if($key != "name"){
