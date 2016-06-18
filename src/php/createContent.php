@@ -51,7 +51,7 @@ class createContent{
                     }break;
 
                     case "pw":{
-                        $content .= "<li><b>Password: </b>".$aes->decrypt($value2)."</li>";
+                        $content .= "<li><b>Password (encrypted): </b>".$value2."</li>";
                     }break;
 
                     case "email":{

@@ -5,8 +5,8 @@
  * Date: 15.06.2016
  * Time: 19:20
  */
-    require_once("createContent.php");
 
+    require_once("createContent.php");
     session_start();
     if($_SESSION['login'] == true) {
         $link = $_SERVER['DOCUMENT_ROOT'] . "/PwM/src/layout/index.html";
