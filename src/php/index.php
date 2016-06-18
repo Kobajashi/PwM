@@ -7,21 +7,33 @@
  */
 
     require_once("createContent.php");
+    session_start();
+    if($_SESSION['login'] == true) {
+        $link = $_SERVER['DOCUMENT_ROOT'] . "/PwM/src/layout/index.html";
+        if (file_exists($link)) {
+            $fh = fopen($link, r);
+            $pc = fread($fh, filesize($link));
+            fclose($fh);
+        } else {
+            echo "Fuck you";
+        }
 
-    //Chek if ther is a file and load it in $pc
-    $link = $_SERVER['DOCUMENT_ROOT'] . "/PwM/src/layout/index.html";
-    if(file_exists($link)){
-        $fh = fopen($link, r);
-        $pc = fread($fh, filesize($link));
-        fclose($fh);
+        $markers = array(
+            'content' => createContent::getInstance()->generateContent()
+        );
+
+        $content = createContent::getInstance()->replaceMarkers($markers, $pc);
+
+        echo $content;
     } else {
-        echo "Fuck you";
+        $link = $_SERVER['DOCUMENT_ROOT'] . "/PwM/src/layout/login.html";
+        if (file_exists($link)) {
+            $fh = fopen($link, r);
+            $pc = fread($fh, filesize($link));
+            fclose($fh);
+        } else {
+            echo "Fuck you";
+        }
+
+        echo $pc;
     }
-
-    $markers = array(
-        'test' => "Noch nicht da"
-    );
-
-    $content = createContent::getInstance()->replaceMarkers($markers, $pc);
-
-    echo $content;
