@@ -5,9 +5,12 @@
  * Date: 18.06.2016
  * Time: 10:16
  */
-    require_once("server.php");
+    require_once("user.php");
 
-    $username = $_POST['username'];
+    $res = user::getInstance()->getUser($_POST['username']);
+
+    var_dump($res);
+    /*$username = $_POST['username'];
     $password = $_POST['password'];
 
     $db = server::getInstance()->connect();
@@ -25,3 +28,5 @@
         $_SESSION['login'] = true;
         $_SESSION['user'] = $username;
     }
+
+    header("location: http://localhost/PwM/src/php/");*/
