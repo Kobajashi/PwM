@@ -31,7 +31,8 @@ class createContent{
     }
 
     public function generateContent(){
-        $dbContent = server::getInstance()->getDataFrom("cont");
+        session_start();
+        $dbContent = server::getInstance()->getDataFrom("cont".$_SESSION['userID']);
         $content = "";
 
         $aes = new AES(self::$z);
@@ -51,7 +52,7 @@ class createContent{
                     }break;
 
                     case "pw":{
-                        $content .= "<li><b>Password (encrypted): </b>".$aes->decrypt($value2)."</li>";
+                        $content .= "<li><b>Password: </b>".$aes->decrypt($value2)."</li>";
                     }break;
 
                     case "email":{

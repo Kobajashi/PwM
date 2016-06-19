@@ -6,27 +6,17 @@
  * Time: 10:16
  */
     require_once("user.php");
+    require_once("AES/AESclass.php");
 
-    $res = user::getInstance()->getUser($_POST['username']);
+    $aes = new AES(server::getInstance()->getAESKey());
 
-    var_dump($res);
-    /*$username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $db = server::getInstance()->connect();
-
-    $sql = "SELECT * FROM user WHERE
-                unsername='$username' AND
-                pw='$password'
-            LIMIT 1";
-
-    $res = mysqli_query($db, $sql);
-    $res = mysqli_fetch_array($res);
+    $res = user::getInstance()->getUser($_POST['username'], $aes->encrypt($_POST['password']));
 
     if(isset($res)){
         session_start();
         $_SESSION['login'] = true;
-        $_SESSION['user'] = $username;
+        $_SESSION['user'] = $_POST['username'];
+        $_SESSION['userID'] = $res['id'];
     }
 
-    header("location: http://localhost/PwM/src/php/");*/
+    header("location: http://localhost/PwM/src/php/");

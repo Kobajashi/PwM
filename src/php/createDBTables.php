@@ -22,13 +22,13 @@ class createDBTables{
         $db = server::getInstance()->connect();
 
         $sql = "CREATE TABLE IF NOT EXISTS `cont` (
-      `id` int(11) NOT NULL,
+      `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       `nameOfPlattform` varchar(64) NOT NULL,
       `username` varchar(64) DEFAULT NULL,
       `pw` varchar(128) DEFAULT NULL,
       `email` varchar(64) DEFAULT NULL,
       `name` varchar(32) DEFAULT NULL
-      ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;";
+      ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;";
 
         mysqli_query($db, $sql);
 

@@ -24,6 +24,10 @@ class server{
         return self::$instance;
     }
 
+    public function getAESKey(){
+        return self::$z;
+    }
+
     public function connect(){
         $db = mysqli_connect($this->database_host, $this->database_user, $this->database_pass);
 
