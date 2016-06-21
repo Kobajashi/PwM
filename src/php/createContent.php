@@ -11,14 +11,6 @@
 
 class createContent{
     private static $z = "5j@mKRRVHT6w6MKZqMk?49v6X^jNXjE7";
-    private static $instance = null;
-
-    public static function getInstance(){
-        if(!self::$instance){
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 
     public function replaceMarkers($markers, $origContent){
         $content = $origContent;
@@ -31,8 +23,11 @@ class createContent{
     }
 
     public function generateContent(){
+        $server = new server();
+
         session_start();
-        $dbContent = server::getInstance()->getDataFrom("cont".$_SESSION['userID']);
+        $dbContent = $server->getDataFrom("cont".$_SESSION['userID']);
+
         $content = "";
 
         $aes = new AES(self::$z);
@@ -44,7 +39,9 @@ class createContent{
             foreach($dbContent[$key1] as $key2 => $value2){
                 switch($key2){
                     case "nameOfPlattform":{
-                        $content .= "<li><h2>".$value2."</h2></li>";
+                        if($key2 === "nameOfPlattform") {
+                            $content .= "<li><h2>" . $value2 . " <a href='#' style='font-size: 15px;'>edit</a></h2></li>";
+                        }
                     }break;
 
                     case "username":{
@@ -52,7 +49,7 @@ class createContent{
                     }break;
 
                     case "pw":{
-                        $content .= "<li><b>Password: </b>".$aes->decrypt($value2)."</li>";
+                        $content .= "<li><b>Password: </b>".$aes->decrypt($value2)." </li>";
                     }break;
 
                     case "email":{

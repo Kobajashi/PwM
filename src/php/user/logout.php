@@ -7,6 +7,8 @@
  */
 
     session_start();
-    $_SESSION['login'] = false;
+    $_SESSION['login']  = false;
+    $_SESSION['user']   = null;
+    $_SESSION['userID'] = null;
 
     header("location: http://localhost/PwM/src/php/");

@@ -5,27 +5,24 @@
  * Date: 19.06.2016
  * Time: 20:16
  */
-    require_once("server.php");
-    require_once("AES/AESclass.php");
+    require_once(__DIR__."/../server.php");
+    require_once("../AES/AESclass.php");
+
 
     class user {
-
-
-        private static $instance = null;
-
-        public static function getInstance(){
-            if(!self::$instance){
-                self::$instance = new self();
-            }
-            return self::$instance;
-        }
-
         public function setUser($name, $password){
-
+            if(self::isUserExistent($name) == false){
+                self::createUser($name, $password);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public function getUser($name, $pw){
-            $db = server::getInstance()->connect();
+            $server = new server();
+
+            $db = $server->connect();
 
             $sql = "SELECT * FROM user WHERE
                     unsername='$name' AND
@@ -38,9 +35,10 @@
         }
 
         public function createUser($name, $pw){
-            $aes = new AES(server::getInstance()->getAESKey());
+            $server = new server();
+            $aes    = new AES($server->getAESKey());
 
-            $db = server::getInstance()->connect();
+            $db = $server->connect();
 
             $sql = "INSERT INTO `user` (`unsername`, `pw`) VALUES ('" .$name. "', '" .$aes->encrypt($pw). "')";
 
@@ -59,9 +57,24 @@
                       `pw` varchar(128) DEFAULT NULL,
                       `email` varchar(64) DEFAULT NULL,
                       `name` varchar(32) DEFAULT NULL
-                      ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;";
+                      ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
             mysqli_query($db, $sql);
         }
 
-        private function isUserExistent($name){}
+        private function isUserExistent($name){
+            $server = new server();
+
+            $db = $server->connect();
+
+            $sql = "SELECT * FROM `user` WHERE `unsername`='".$name."'";
+
+            $res = mysqli_query($db, $sql);
+            $res = mysqli_fetch_array($res);
+
+            if($res != null){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }

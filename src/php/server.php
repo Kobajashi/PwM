@@ -10,19 +10,10 @@
 class server{
     private static $z = "5j@mKRRVHT6w6MKZqMk?49v6X^jNXjE7";
 
-    private static $instance = null;
-
     private $database_host = "localhost";
     private $database_name = "PwM";
     private $database_user = "admin";
     private $database_pass = "Kuchen123";
-
-    public static function getInstance(){
-        if(!self::$instance){
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 
     public function getAESKey(){
         return self::$z;
@@ -95,4 +86,4 @@ class server{
 
         $db->query($sql);
     }
-} 
+}

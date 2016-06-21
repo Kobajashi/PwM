@@ -6,11 +6,13 @@
  * Time: 10:16
  */
     require_once("user.php");
-    require_once("AES/AESclass.php");
+    require_once("../AES/AESclass.php");
 
-    $aes = new AES(server::getInstance()->getAESKey());
+    $server     = new server();
+    $aes        = new AES($server->getAESKey());
+    $user       = new user();
 
-    $res = user::getInstance()->getUser($_POST['username'], $aes->encrypt($_POST['password']));
+    $res = $user->getUser($_POST['username'], $aes->encrypt($_POST['password']));
 
     if(isset($res)){
         session_start();

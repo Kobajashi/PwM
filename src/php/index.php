@@ -7,6 +7,8 @@
  */
     require_once("createContent.php");
 
+    $createCont = new createContent();
+
     session_start();
     if($_SESSION['login'] == true) {
         $link = $_SERVER['DOCUMENT_ROOT'] . "/PwM/src/layout/index.html";
@@ -19,14 +21,12 @@
         }
 
         $markers = array(
-            'content' => createContent::getInstance()->generateContent(),
+            'content' => $createCont->generateContent(),
             'username' => $_SESSION['user']
         );
 
-        $content = createContent::getInstance()->replaceMarkers($markers, $pc);
+        $content = $createCont->replaceMarkers($markers, $pc);
 
-        session_start();
-        var_dump("cont".$_SESSION['userID']);
         echo $content;
 
     } else {

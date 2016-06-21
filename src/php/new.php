@@ -7,8 +7,10 @@
  */
     require_once("server.php");
 
+    $server = new server();
+
     session_start();
-    server::getInstance()->setDataFrom("cont".$_SESSION['userID'], array(
+    $server->setDataFrom("cont".$_SESSION['userID'], array(
         "nameOfPlattform" => $_POST['nameOfPlattform'],
         "username"        => $_POST['username'],
         "pw"              => $_POST['pw'],
