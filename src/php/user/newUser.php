@@ -9,11 +9,17 @@
 
     $user = new user();
 
-    if($user->setUser($_POST['username'], $_POST['password'])){
+    $setUser_Result = $user->setUser($_POST['username'], $_POST['password']);
+
+    if($setUser_Result == true){
         echo "User successful created<br>back to main page in 5 sec.";
         sleep(5);
         header("location: http://localhost/PwM/src/php/");
-    } else {
+    } elseif($setUser_Result == "403"){
+        echo "You are not alowed to create user<br>back to main page in 5 sec.";
+        sleep(5);
+        header("location: http://localhost/PwM/src/php/");
+    } elseif($setUser_Result == false) {
         echo "User already exists<br>back to create user in 5 sec.";
         sleep(5);
         header("location: http://localhost/PwM/src/layout/newUser.html");

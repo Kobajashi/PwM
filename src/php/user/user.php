@@ -10,12 +10,30 @@
 
 
     class user {
+        private $whiteList = array(
+            0 => "MrFibunacci"
+            // add more user here
+        );
+
+        /**
+         * @return array
+         */
+        public function getWhiteList()
+        {
+            return $this->whiteList;
+        }
+
         public function setUser($name, $password){
-            if(self::isUserExistent($name) == false){
-                self::createUser($name, $password);
-                return true;
+            session_start();
+            if(self::isUserOnWhiteList($_SESSION['user'])) {
+                if (self::isUserExistent($name) == false) {
+                    self::createUser($name, $password);
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                return "403";
             }
         }
 
@@ -72,6 +90,21 @@
             $res = mysqli_fetch_array($res);
 
             if($res != null){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function isUserOnWhiteList($user){
+            $isTrue = false;
+            foreach(self::getWhiteList() as $key => $value){
+                if($value == $user){
+                    $isTrue = true;
+                }
+            };
+
+            if($isTrue){
                 return true;
             } else {
                 return false;
