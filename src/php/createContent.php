@@ -23,6 +23,7 @@ class createContent{
     }
 
     public function generateContent(){
+
         $server = new server();
 
         session_start();
@@ -35,12 +36,11 @@ class createContent{
         foreach($dbContent as $key1 => $value1){
 
             $content .= "<div><ul>";
-
             foreach($dbContent[$key1] as $key2 => $value2){
                 switch($key2){
                     case "nameOfPlattform":{
-                        if($key2 === "nameOfPlattform") {
-                            $content .= "<li><h2>" . $value2 . " <a href='#' style='font-size: 15px;'>edit</a></h2></li>";
+                        if($key2 === "nameOfPlattform"){
+                            $content .= "<li><h2>" . $value2 . " <a href='edit/edit.php?id=".$key1."' style='font-size: 15px;'>edit</a></h2></li>";
                         }
                     }break;
 
@@ -70,5 +70,33 @@ class createContent{
         }
 
         return $content;
+    }
+
+    public function generateEditContent($input){
+        $aes = new AES(self::$z);
+        $content = "";
+        foreach($input as $key => $value){
+            switch($key){
+                case "nameOfPlattform":{
+                    if($key === "nameOfPlattform") {
+                        $content .= "<input type='text' name='".$key."' value='".$value."'> Platform<br>";
+                    }
+                }break;
+
+                case "username":{
+                    $content .= "<input type='text' name='".$key."' value='".$value."'> Username<br>";
+                }break;
+
+                case "pw":{
+                    $content .= "<input type='text' name='".$key."' value='".$aes->decrypt($value)."'> Password<br>";
+                }break;
+
+                case "email":{
+                    $content .= "<input type='text' name='".$key."' value='".$value."'> E-Mail<br>";
+                }break;
+            }
+        }
+
+        return $content."<input type='submit' value='submit'>";
     }
 } 

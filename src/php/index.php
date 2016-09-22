@@ -21,7 +21,7 @@
         }
 
         $markers = array(
-            'content' => $createCont->generateContent(),
+            'content'  => $createCont->generateContent(),
             'username' => $_SESSION['user']
         );
 
