@@ -12,10 +12,15 @@ class server{
 
     private $database_host = "localhost";
     private $database_name = "PwM";
-    private $database_user = "admin";
-    private $database_pass = "Kuchen123";
+    private $database_user = "root";
+    private $database_pass = "";
 
     public function getAESKey(){
+        return self::$z;
+    }
+
+    public function getSalt()
+    {
         return self::$z;
     }
 
@@ -37,30 +42,29 @@ class server{
         return $db;
     }
 
-    public function getDataFrom($DB){
+    public function getDataFrom($userId, $recordId = null){
         $db = self::connect();
+        
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS pws.* FROM pws WHERE userId = ' . $userId . (($recordId != NULL) ? ' && id = ' . $recordId : '');
+        $result = mysqli_query($db, $sql);
 
-        $sql = "SELECT * FROM `".$DB."`";
-        $numRows = mysqli_query($db, $sql);
+        /*$sqlCalcRow = 'SELECT FOUND_ROWS() AS rows;';
+        $resultCalRow = mysqli_query($db, $sqlCalcRow);
+        var_dump(mysqli_fetch_assoc($resultCalRow)); exit;*/
 
-        $i = 1;
-        while(mysqli_num_rows($numRows) >= $i) {
-            $sql = "SELECT * FROM `".$DB."` WHERE `id`=".$i;
-            $res = mysqli_query($db, $sql);
-            $res = mysqli_fetch_array($res, MYSQLI_BOTH);
-
-            $dbContent[] = $res;
-
-            ++$i;
+        $content = [];
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $content[] = $row;
         }
 
-        return $dbContent;
+        return $content;
     }
 
     public function setDataFrom($table, $data){
         $aes = new AES(self::$z);
         $db = self::connect();
-
+        
         $sql = "INSERT INTO `".$table."` (";
         foreach($data as $key => $value){
             if($key != "name"){
@@ -74,9 +78,9 @@ class server{
         foreach($data as $key => $value){
             if($key != "name"){
                 if($key != "pw"){
-                    $sql .= "'".$value."', ";
+                    $sql .= "'".mysqli_real_escape_string($db, $value)."', ";
                 } else {
-                    $sql .= "'".$aes->encrypt($value)."', ";
+                    $sql .= "'".mysqli_real_escape_string($db, $aes->encrypt($value))."', ";
                 }
             } else {
                 $sql .= "'".null."' ";

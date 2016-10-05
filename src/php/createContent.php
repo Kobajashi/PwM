@@ -6,97 +6,110 @@
  * Time: 21:30
  */
 
-    require_once("server.php");
-    include_once("AES/AESclass.php");
+require_once("server.php");
+include_once("AES/AESclass.php");
 
-class createContent{
-    private static $z = "5j@mKRRVHT6w6MKZqMk?49v6X^jNXjE7";
+class createContent
+{
+	private static $z = "5j@mKRRVHT6w6MKZqMk?49v6X^jNXjE7";
 
-    public function replaceMarkers($markers, $origContent){
-        $content = $origContent;
+	public function replaceMarkers($markers, $origContent)
+	{
+		$content = $origContent;
 
-        foreach ($markers as $key => $value) {
-            $content = str_replace('###'.$key.'###', $value, $content);
-        }
+		foreach($markers as $key => $value)
+		{
+			$content = str_replace('###' . $key . '###', $value, $content);
+		}
 
-        return $content;
-    }
+		return $content;
+	}
 
-    public function generateContent(){
+	public function generateContent()
+	{
 
-        $server = new server();
+		$server = new server();
 
-        session_start();
-        $dbContent = $server->getDataFrom("cont".$_SESSION['userID']);
+		session_start();
+		$dbContent = $server->getDataFrom($_SESSION['userID']);
 
-        $content = "";
+		$content = "";
 
-        $aes = new AES(self::$z);
+		$aes = new AES(self::$z);
 
-        foreach($dbContent as $key1 => $value1){
+		foreach($dbContent as $contentRow)
+		{
+			$content .= "<div><ul>";
+			foreach($contentRow as $key2 => $value2)
+			{
+				switch($key2)
+				{
+					case "nameOfPlattform":
+						$content .= "<li><h2>" . $value2 . " <a href='edit/edit.php?id=" . $contentRow['id'] . "' style='font-size: 15px;'>edit</a></h2></li>";
+						break;
+					case "username":
+						$content .= "<li><b>Username: </b>" . $value2 . "</li>";
+						break;
+					case "pw":
+						$content .= "<li><b>Password: </b>" . $aes->decrypt($value2) . " </li>";
+						break;
+					case "email":
+						$content .= "<li><b>E-Mail: </b>" . $value2 . "</li>";
+						break;
+					case "name":
+						$content .= "<li><b>Name/Names: </b>" . $value2 . "</li>";
+						break;
+				}
+			}
 
-            $content .= "<div><ul>";
-            foreach($dbContent[$key1] as $key2 => $value2){
-                switch($key2){
-                    case "nameOfPlattform":{
-                        if($key2 === "nameOfPlattform"){
-                            $content .= "<li><h2>" . $value2 . " <a href='edit/edit.php?id=".$key1."' style='font-size: 15px;'>edit</a></h2></li>";
-                        }
-                    }break;
+			$content .= "</div></ul>";
+		}
 
-                    case "username":{
-                        $content .= "<li><b>Username: </b>".$value2."</li>";
-                    }break;
+		return $content;
+	}
 
-                    case "pw":{
-                        $content .= "<li><b>Password: </b>".$aes->decrypt($value2)." </li>";
-                    }break;
+	public function generateEditContent($input)
+	{
+		$aes = new AES(self::$z);
+		$content = "";
+		foreach($input as $key => $value)
+		{
+			switch($key)
+			{
+				case "id":
+				{
+						$content .= "<input type='hidden' name='" . $key . "' value='" . $value . "'>";
+				}
+				break;
+				case "nameOfPlattform":
+				{
+					if($key === "nameOfPlattform")
+					{
+						$content .= "<input type='text' name='" . $key . "' value='" . $value . "'> Platform<br>";
+					}
+				}
+					break;
 
-                    case "email":{
-                        if($value2){
-                            $content .= "<li><b>E-Mail: </b>".$value2."</li>";
-                        }
-                    }break;
+				case "username":
+				{
+					$content .= "<input type='text' name='" . $key . "' value='" . $value . "'> Username<br>";
+				}
+					break;
 
-                    case "name":{
-                        if($value2){
-                            $content .= "<li><b>Name/Names: </b>".$value2."</li>";
-                        }
-                    }break;
-                }
-            }
+				case "pw":
+				{
+					$content .= "<input type='text' name='" . $key . "' value='" . $aes->decrypt($value) . "'> Password<br>";
+				}
+					break;
 
-            $content .= "</div></ul>";
-        }
+				case "email":
+				{
+					$content .= "<input type='text' name='" . $key . "' value='" . $value . "'> E-Mail<br>";
+				}
+					break;
+			}
+		}
 
-        return $content;
-    }
-
-    public function generateEditContent($input){
-        $aes = new AES(self::$z);
-        $content = "";
-        foreach($input as $key => $value){
-            switch($key){
-                case "nameOfPlattform":{
-                    if($key === "nameOfPlattform") {
-                        $content .= "<input type='text' name='".$key."' value='".$value."'> Platform<br>";
-                    }
-                }break;
-
-                case "username":{
-                    $content .= "<input type='text' name='".$key."' value='".$value."'> Username<br>";
-                }break;
-
-                case "pw":{
-                    $content .= "<input type='text' name='".$key."' value='".$aes->decrypt($value)."'> Password<br>";
-                }break;
-
-                case "email":{
-                    $content .= "<input type='text' name='".$key."' value='".$value."'> E-Mail<br>";
-                }break;
-            }
-        }
-
-        return $content."<input type='submit' value='submit'>";
-    }
+		return $content . "<input type='submit' value='submit'>";
+	}
 } 

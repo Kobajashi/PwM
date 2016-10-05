@@ -13,11 +13,9 @@
 
     session_start();
     $_SESSION['editId'] = $_GET['id'];
-    $toEditContent = $server->getDataFrom("cont".$_SESSION["userID"]);
+    $toEditContent = $server->getDataFrom($_SESSION["userID"], $_GET['id']);
 
-    $toEditContent = $toEditContent[$_SESSION['editId']];
-
-    $link = $_SERVER['DOCUMENT_ROOT'] . "/PwM/src/layout/edit.html";
+    $link = "../../layout/edit.html";
     if (file_exists($link)) {
         $fh = fopen($link, r);
         $pc = fread($fh, filesize($link));
@@ -27,7 +25,7 @@
     }
 
     $markers = array(
-        'formular' => $createCont->generateEditContent($toEditContent),
+        'formular' => $createCont->generateEditContent($toEditContent[0]),
     );
 
     $content = $createCont->replaceMarkers($markers, $pc);

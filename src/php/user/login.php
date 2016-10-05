@@ -12,7 +12,7 @@
     $aes        = new AES($server->getAESKey());
     $user       = new user();
 
-    $res = $user->getUser($_POST['username'], $aes->encrypt($_POST['password']));
+    $res = $user->getUser($_POST['username'], crypt(md5($_POST['password']), $server->getSalt()));
 
     if(isset($res)){
         session_start();
@@ -21,4 +21,4 @@
         $_SESSION['userID'] = $res['id'];
     }
 
-    header("location: http://localhost/PwM/src/php/");
+    header("location: /");

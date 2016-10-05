@@ -6,9 +6,6 @@
  * Time: 15:08
  */
 
-    session_start();
-    $_SESSION['login']  = false;
-    $_SESSION['user']   = null;
-    $_SESSION['userID'] = null;
-
-    header("location: http://localhost/PwM/src/php/");
+session_start();
+session_destroy();
+header("location: /");
